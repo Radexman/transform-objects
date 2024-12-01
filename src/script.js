@@ -7,23 +7,34 @@ const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
 
 // Object
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 'salmon' });
-const mesh = new THREE.Mesh(geometry, material);
-mesh.position.x = 0.7;
-mesh.position.y = -0.6;
-mesh.position.z = 1;
-scene.add(mesh);
+const group = new THREE.Group();
+group.scale.y = 2;
+group.position.y = 1;
+group.rotation.y = 1;
+scene.add(group);
+
+const cubeOne = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
+group.add(cubeOne);
+const cubeTwo = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 0x00ff00 }));
+cubeTwo.position.x = 1.5;
+group.add(cubeTwo);
+const cubeThree = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 0x0000ff }));
+cubeThree.position.x = -1.5;
+group.add(cubeThree);
+
+// Axes helper
+const axesHelper = new THREE.AxesHelper();
+scene.add(axesHelper);
 
 // Sizes
 const sizes = {
-	width: 800,
-	height: 600,
+	width: 600,
+	height: 700,
 };
 
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
-camera.position.z = 3;
+camera.position.set(0, 0, 5);
 scene.add(camera);
 
 // Renderer
